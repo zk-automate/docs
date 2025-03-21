@@ -1,0 +1,499 @@
+openapi: 3.0.0
+info:
+  title: Zotto Combined API
+  version: '1.0'
+servers:
+  - url: https://api-dex-public-api.zotto.io/v1
+paths:
+  /pools:
+    get:
+      summary: Retrieve pools data and aggregated metrics
+      parameters:
+        - name: chains
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: addresses
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: string
+            default: trades24h
+        - name: order
+          in: query
+          schema:
+            type: string
+            default: desc
+        - name: score
+          in: query
+          schema:
+            type: number
+            format: float
+            default: 0
+        - name: auditScoreFrom
+          in: query
+          schema:
+            type: integer
+        - name: auditScoreTo
+          in: query
+          schema:
+            type: integer
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: launchpad
+          in: query
+          schema:
+            type: string
+        - name: liquidityFrom
+          in: query
+          schema:
+            type: string
+        - name: liquidityTo
+          in: query
+          schema:
+            type: string
+        - name: volume24hFrom
+          in: query
+          schema:
+            type: string
+        - name: volume24hTo
+          in: query
+          schema:
+            type: string
+        - name: makersFrom
+          in: query
+          schema:
+            type: integer
+        - name: makersTo
+          in: query
+          schema:
+            type: integer
+        - name: makers24hFrom
+          in: query
+          schema:
+            type: integer
+        - name: makers24hTo
+          in: query
+          schema:
+            type: integer
+        - name: holdersFrom
+          in: query
+          schema:
+            type: integer
+        - name: holdersTo
+          in: query
+          schema:
+            type: integer
+        - name: priceChange5mFrom
+          in: query
+          schema:
+            type: string
+        - name: priceChange5mTo
+          in: query
+          schema:
+            type: string
+        - name: priceChange1hFrom
+          in: query
+          schema:
+            type: string
+        - name: priceChange1hTo
+          in: query
+          schema:
+            type: string
+        - name: priceChange6hFrom
+          in: query
+          schema:
+            type: string
+        - name: priceChange6hTo
+          in: query
+          schema:
+            type: string
+        - name: priceChange24hFrom
+          in: query
+          schema:
+            type: string
+        - name: priceChange24hTo
+          in: query
+          schema:
+            type: string
+        - name: buys24hFrom
+          in: query
+          schema:
+            type: integer
+        - name: buys24hTo
+          in: query
+          schema:
+            type: integer
+        - name: sells24hFrom
+          in: query
+          schema:
+            type: integer
+        - name: sells24hTo
+          in: query
+          schema:
+            type: integer
+        - name: transactions24hFrom
+          in: query
+          schema:
+            type: integer
+        - name: transactions24hTo
+          in: query
+          schema:
+            type: integer
+        - name: marketCapFrom
+          in: query
+          schema:
+            type: string
+        - name: marketCapTo
+          in: query
+          schema:
+            type: string
+        - name: ageFrom
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: ageTo
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: percentageOfInitialDevBundleFrom
+          in: query
+          schema:
+            type: string
+        - name: percentageOfInitialDevBundleTo
+          in: query
+          schema:
+            type: string
+        - name: baseTokenTopHoldersPercentageFrom
+          in: query
+          schema:
+            type: string
+        - name: baseTokenTopHoldersPercentageTo
+          in: query
+          schema:
+            type: string
+        - name: devSoldPercentageFrom
+          in: query
+          schema:
+            type: string
+        - name: devSoldPercentageTo
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /pools/{address}:
+    get:
+      summary: Retrieve details for a specific pool
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with detailed pool information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chain:
+                    type: string
+                  address:
+                    type: string
+                  factory:
+                    type: string
+                  baseSymbol:
+                    type: string
+                  baseSymbolHasDuplicates:
+                    type: boolean
+                  baseAddress:
+                    type: string
+                  baseDecimals:
+                    type: integer
+                  baseImageURL:
+                    type: string
+                  quoteSymbol:
+                    type: string
+                  quoteAddress:
+                    type: string
+                  quoteDecimals:
+                    type: integer
+                  quoteImageURL:
+                    type: string
+                  liquidityUSD:
+                    type: string
+                  makers:
+                    type: string
+                  holders:
+                    type: string
+                  priceUSD:
+                    type: string
+                  priceChange5m:
+                    type: string
+                  priceChange1h:
+                    type: string
+                  priceChange6h:
+                    type: string
+                  priceChange24h:
+                    type: string
+                  volumeBuy24hUSD:
+                    type: string
+                  volumeSell24hUSD:
+                    type: string
+                  volume24hUSD:
+                    type: string
+                  buys24h:
+                    type: string
+                  sells24h:
+                    type: string
+                  trades24h:
+                    type: string
+                  marketCapUSD:
+                    type: string
+                  score:
+                    type: string
+                  audit:
+                    type: object
+                    additionalProperties: true
+                  socials:
+                    type: object
+                    additionalProperties: true
+                  bundleAnalysis:
+                    type: object
+                    additionalProperties: true
+                  baseTokenTopHoldersPercentage:
+                    type: string
+                  devAnalysis:
+                    nullable: true
+                  createdAt:
+                    type: string
+                    format: date-time
+  /pools/search:
+    get:
+      summary: Search for pools by address or symbol
+      parameters:
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with matching pools
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    chain:
+                      type: string
+                    address:
+                      type: string
+                    factory:
+                      type: string
+                    baseSymbol:
+                      type: string
+                    baseAddress:
+                      type: string
+                    baseImageURL:
+                      type: string
+                    quoteSymbol:
+                      type: string
+                    quoteAddress:
+                      type: string
+                    quoteImageURL:
+                      type: string
+                    liquidityUSD:
+                      type: string
+                    priceUSD:
+                      type: string
+                    priceChange1h:
+                      type: string
+                    priceChange24h:
+                      type: string
+                    volumeBuy24hUSD:
+                      type: string
+                    volumeSell24hUSD:
+                      type: string
+                    volume24hUSD:
+                      type: string
+                    marketCapUSD:
+                      type: string
+                    createdAt:
+                      type: string
+                      format: date-time
+  /pools/{address}/transactions:
+    get:
+      summary: Retrieve transactions for a specific pool
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Successful response with pool transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chain:
+                          type: string
+                        poolAddress:
+                          type: string
+                        transactionHash:
+                          type: string
+                        transactionType:
+                          type: string
+                        baseSymbol:
+                          type: string
+                        baseAddress:
+                          type: string
+                        baseDecimals:
+                          type: integer
+                        baseAmount:
+                          type: string
+                        quoteSymbol:
+                          type: string
+                        quoteAddress:
+                          type: string
+                        quoteDecimals:
+                          type: integer
+                        quoteAmount:
+                          type: string
+                        amountUsd:
+                          type: string
+                        currencyRateUsd:
+                          type: string
+                        maker:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
+  /pools/bars:
+    get:
+      summary: Retrieve OHLC (Open, High, Low, Close) data for a specific pool
+      parameters:
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: pool
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: resolution
+          in: query
+          required: true
+          description: Time resolution (e.g., 5m, 15m, 1h)
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          description: Unix timestamp for the start of the requested period
+          schema:
+            type: integer
+        - name: to
+          in: query
+          required: true
+          description: Unix timestamp for the end of the requested period
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response with OHLC data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  o:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  c:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  h:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  l:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  v:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  t:
+                    type: array
+                    items:
+                      type: integer
+                      format: int64
